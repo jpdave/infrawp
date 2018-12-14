@@ -211,6 +211,52 @@
         "SubnetId" : { "Ref" : "PrivateSubnetApp2" },
         "RouteTableId" : { "Ref" : "PrivateRouteTable" }
       }
+    },
+
+    "PrivateSubnetDB1" : {
+      "Type" : "AWS::EC2::Subnet",
+      "Properties" : {
+        "VpcId" : { "Ref" : "VPC" },
+        "AvailabilityZone" : "ap-southeast-1b",
+        "CidrBlock" : "10.10.21.0/24" ,
+        "Tags" : [
+          { "Key" : "Application", "Value" : { "Ref" : "AWS::StackName" } },
+          { "Key" : "Env", "Value" : {"Ref" : "Env"} },
+          {"Key" : "BillingCode", "Value" : {"Ref" : "BillingCode"}},
+          { "Key" : "Name", "Value" : "Dev-VPC-Private-db-1" }
+        ]
+      }
+    },
+    "PrivateSubnetDB2" : {
+      "Type" : "AWS::EC2::Subnet",
+      "Properties" : {
+        "VpcId" : { "Ref" : "VPC" },
+        "AvailabilityZone" : "ap-southeast-1a",
+        "CidrBlock" : "10.10.22.0/24" ,
+        "Tags" : [
+          { "Key" : "Application", "Value" : { "Ref" : "AWS::StackName" } },
+          { "Key" : "Env", "Value" : {"Ref" : "Env"} },
+          {"Key" : "BillingCode", "Value" : {"Ref" : "BillingCode"}},
+          { "Key" : "Name", "Value" : "Dev-VPC-Private-db-2" }
+        ]
+      }
+    },
+
+
+    "PrivateSubnetRouteTableDB1Association" : {
+      "Type" : "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties" : {
+        "SubnetId" : { "Ref" : "PrivateSubnetDB1" },
+        "RouteTableId" : { "Ref" : "PrivateRouteTable" }
+      }
+    },
+
+    "PrivateSubnetRouteTableDB2Association" : {
+      "Type" : "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties" : {
+        "SubnetId" : { "Ref" : "PrivateSubnetDB2" },
+        "RouteTableId" : { "Ref" : "PrivateRouteTable" }
+      }
     }
 
 
