@@ -5,7 +5,18 @@
   
 
   "Parameters" : {
-
+"BillingCode": {
+      "Default": "test",
+      "Description" : "Enter the BillingCode to be used for Cost Governance",
+      "Type": "String",
+      "ConstraintDescription" : "Enter key for BillingCode tag"
+    },
+    "Env": {
+      "Default": "test",
+      "Description" : "Enter the Environment tag to segregate stack across different environments",
+      "Type": "String",
+      "ConstraintDescription" : "Enter key for Environment tag"
+    },
   
     
 },
