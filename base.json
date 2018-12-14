@@ -5,6 +5,13 @@
   
 
   "Parameters" : {
+
+    
+    "AZs" : {
+      "Type" : "List<AWS::EC2::AvailabilityZone::Name>",
+      "Description" : "The list of AvailabilityZones for your Virtual Private Cloud (VPC)",
+      "ConstraintDescription" : "must be a list if valid EC2 availability zones for the selected Virtual Private Cloud"
+    },
 "BillingCode": {
       "Default": "test",
       "Description" : "Enter the BillingCode to be used for Cost Governance",
@@ -16,7 +23,7 @@
       "Description" : "Enter the Environment tag to segregate stack across different environments",
       "Type": "String",
       "ConstraintDescription" : "Enter key for Environment tag"
-    },
+    }
   
     
 },
