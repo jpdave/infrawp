@@ -412,11 +412,7 @@
           "Ref": "BillingCode"
         }
       }],
-      "UserData": {
-       
-      
-    },
-    "NetworkInterfaces": [{
+      "NetworkInterfaces": [{
       
       "AssociatePublicIpAddress": "True",
       "DeviceIndex": "0",
