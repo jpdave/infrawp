@@ -7,6 +7,47 @@
   "Parameters" : {
 
 
+    "DBName": {
+      "Default": "test",
+      "Description" : "Database name for TestRails RDS",
+      "Type": "String",
+      "MinLength": "1",
+      "MaxLength": "64",
+      "AllowedPattern" : "[a-zA-Z][a-zA-Z0-9]*",
+      "ConstraintDescription" : "must begin with a letter and contain only alphanumeric characters."
+    },
+
+     "DBUser": {
+      "NoEcho": "true",
+      "Default": "jpdave",
+      "Description" : "Admin username for the TestRails Database",
+      "Type": "String",
+      "MinLength": "1",
+      "MaxLength": "16",
+      "AllowedPattern" : "[a-zA-Z][a-zA-Z0-9]*",
+      "ConstraintDescription" : "must begin with a letter and contain only alphanumeric characters."
+    },
+
+    "DBPassword": {
+      "NoEcho": "true",
+      "Description" : "Admin password for the TestRails Database",
+      "Default": "qwe123asd",
+      "Type": "String",
+      "MinLength": "1",
+      "MaxLength": "41",
+      "AllowedPattern" : "[a-zA-Z0-9]+",
+      "ConstraintDescription" : "must contain only alphanumeric characters."
+    },
+
+    "DBAllocatedStorage": {
+      "Default": "20",
+      "Description" : "RDS Database Storage (Gb)",
+      "Type": "Number",
+      "MinValue": "5",
+      "MaxValue": "1024",
+      "ConstraintDescription" : "must be between 5 and 1024Gb."
+    },
+
    
 "BillingCode": {
       "Default": "test",
@@ -257,9 +298,70 @@
         "SubnetId" : { "Ref" : "PrivateSubnetDB2" },
         "RouteTableId" : { "Ref" : "PrivateRouteTable" }
       }
+    },
+
+    "DBSubnetGroup" : {
+       "Type" : "AWS::RDS::DBSubnetGroup",
+       "Properties" : {
+          "DBSubnetGroupDescription" : "description",
+          "SubnetIds" : [ {"Ref": "PrivateSubnetDB1"}, {"Ref": "PrivateSubnetDB2"}  ],
+          "Tags" : [ {"Key" : "Name", "Value" : "Dev-VPC-RDS-Subnet-Group"},
+          { "Key" : "Env", "Value" : {"Ref" : "Env"} },
+          {"Key" : "BillingCode", "Value" : {"Ref" : "BillingCode"}} ]
+       }
+    },
+    "RDSDBParameterGroup": {
+      "Type": "AWS::RDS::DBParameterGroup",
+      "Properties" : {
+        "Description" : "Parameter group for RDS Mysql",
+        "Family" : "mysql5.6",
+        
+      }
+    },
+
+    "SecurityGroupRDS" :{
+      "Type" : "AWS::EC2::SecurityGroup",
+  "Properties" : {
+     "GroupDescription" : "ketto-dev-RDS-SG",
+     "SecurityGroupIngress" : [ { 
+          "IpProtocol" : "tcp",
+          "FromPort" : "3306",  
+          "ToPort" : "3306",
+          "CidrIp" : "10.10.0.0/16"
+        }
+         ],
+     "Tags" :  [ 
+     { "Key" : "Application", "Value" : { "Ref" : "AWS::StackName" } },
+     { "Key" : "Env", "Value" : {"Ref" : "Env"} },
+          {"Key" : "BillingCode", "Value" : {"Ref" : "BillingCode"}},
+          { "Key" : "Name", "Value" : "RDS-SG" } 
+          ],
+     "VpcId" : { "Ref": "VPC"}
+      }
+    },
+
+    "RDSMysql1" : {
+      "Type" : "AWS::RDS::DBInstance",
+      "Properties" : {
+        "DBName" :  { "Ref" : "DBName" },
+        "AllocatedStorage" : { "Ref" : "DBAllocatedStorage" },
+        "DBInstanceClass" : { "Ref" : "DBInstanceClass" },
+        "DBInstanceIdentifier": {"Fn::Join" : [ "-", [{"Ref" : "Env"}, "app"]]},
+        "Engine" : "MySQL",
+        "MasterUsername" : {"Ref" : "DBUser"},
+        "DBSubnetGroupName" : {"Ref" : "DBSubnetGroup"},
+        "MasterUserPassword" : {"Ref" : "DBPassword"},
+        "MultiAZ" : "False",
+        "DBParameterGroupName" : {"Ref" : "RDSDBParameterGroup"},
+        "PubliclyAccessible" : "False",
+        "Tags" : [{ "Key"  : "Name", "Value" : "dev-vpc-rds" },
+        { "Key" : "Env", "Value" : {"Ref" : "Env"} },
+        {"Key" : "BillingCode", "Value" : {"Ref" : "BillingCode"}}],
+        "VPCSecurityGroups": [{"Ref" : "SecurityGroupRDS"}]
+        
+      },
+      "DeletionPolicy" : "Delete"
     }
-
-
 
     
 
