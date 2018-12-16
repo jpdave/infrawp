@@ -9,7 +9,7 @@
 
     "DBName": {
       "Default": "test",
-      "Description" : "Database name for TestRails RDS",
+      "Description" : "Database name for RDS",
       "Type": "String",
       "MinLength": "1",
       "MaxLength": "64",
@@ -20,7 +20,7 @@
      "DBUser": {
       "NoEcho": "true",
       "Default": "jpdave",
-      "Description" : "Admin username for the TestRails Database",
+      "Description" : "Admin username for the Database",
       "Type": "String",
       "MinLength": "1",
       "MaxLength": "16",
@@ -30,7 +30,7 @@
 
     "DBPassword": {
       "NoEcho": "true",
-      "Description" : "Admin password for the TestRails Database",
+      "Description" : "Admin password for the Database",
       "Default": "qwe123asd",
       "Type": "String",
       "MinLength": "1",
@@ -43,9 +43,9 @@
       "Default": "20",
       "Description" : "RDS Database Storage (Gb)",
       "Type": "Number",
-      "MinValue": "5",
+      "MinValue": "20",
       "MaxValue": "1024",
-      "ConstraintDescription" : "must be between 5 and 1024Gb."
+      "ConstraintDescription" : "must be between 20 and 1024Gb."
     },
 
     "DBInstanceClass": {
@@ -389,7 +389,7 @@
 },
 
 
-"ELKNginxEc2server1": {
+"AppEc2Server1": {
     "Type": "AWS::EC2::Instance",
     "DependsOn": "RDSMysql1",
     
