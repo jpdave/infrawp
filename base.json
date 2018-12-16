@@ -432,6 +432,16 @@
 
   "Outputs" : {
    
+    "PublicIp" : {
+      "Value" : { "Fn::GetAtt" : [ "AppEc2Server1", "PublicIp" ]},
+      "Description" : "Server's PublicIp Address"
+    },
+
+    "RDSEndPoint":{
+      "Value" : { "Fn::GetAtt" : [ "RDSMysql1", "Endpoint.Address" ]},
+      "Description" : "rds endpoint"
+    }
+
     }
   
 }
