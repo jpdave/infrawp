@@ -98,7 +98,7 @@
           { "Key" : "Application", "Value" : { "Ref" : "AWS::StackName" } },
           { "Key" : "Env", "Value" : {"Ref" : "Env"} },
           {"Key" : "BillingCode", "Value" : {"Ref" : "BillingCode"}},
-          { "Key" : "Name", "Value" : "Dev-VPC" }
+          { "Key" : "Name", "Value" : {"Fn::Join" : [ "-", [{"Ref" : "Env"}, "VPC"]]}  }
           ]
       }
     },
@@ -109,7 +109,7 @@
       "Properties" : {
         "Tags" : [
           { "Key" : "Application", "Value" : { "Ref" : "AWS::StackName" } },
-          { "Key" : "Name", "Value" : "Dev-VPC-IGW" },
+          { "Key" : "Name", "Value" : {"Fn::Join" : [ "-", [{"Ref" : "Env"}, "VPC-IGW"]]} },
           { "Key" : "Env", "Value" : {"Ref" : "Env"} },
           {"Key" : "BillingCode", "Value" : {"Ref" : "BillingCode"}}
         ]
@@ -132,7 +132,7 @@
           { "Key" : "Application", "Value" : { "Ref" : "AWS::StackName" } },
           { "Key" : "Env", "Value" : {"Ref" : "Env"} },
           {"Key" : "BillingCode", "Value" : {"Ref" : "BillingCode"}},
-          { "Key" : "Name", "Value" : "Dev-VPC-Public-route" }
+          { "Key" : "Name", "Value" : {"Fn::Join" : [ "-", [{"Ref" : "Env"}, "VPC-Public-route"]]} }
         ]
       }
     },
@@ -143,7 +143,7 @@
         "Tags" : [
           { "Key" : "Env", "Value" : {"Ref" : "Env"} },
           {"Key" : "BillingCode", "Value" : {"Ref" : "BillingCode"}},
-          { "Key" : "Name", "Value" : "Dev-VPC-Public-route" }
+          { "Key" : "Name", "Value" :{"Fn::Join" : [ "-", [{"Ref" : "Env"}, "VPC-Public-route"]]}  }
         ]
       }
     },
@@ -396,6 +396,7 @@
     "Properties": {
       "InstanceType": {"Ref" : "EC2InstanceType"},
       "KeyName": "elktest",
+
       "ImageId": "ami-039950f07c4a0d878",
       "SourceDestCheck": "True",
       "Tags": [{
@@ -413,7 +414,7 @@
         }
       }],
       "NetworkInterfaces": [{
-      
+      "GroupSet"                 : [{ "Ref" : "SecurityGroupApp" }],
       "AssociatePublicIpAddress": "True",
       "DeviceIndex": "0",
       "DeleteOnTermination": "true",
