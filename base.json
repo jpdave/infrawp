@@ -372,10 +372,16 @@
      "SecurityGroupIngress" : [ 
 
          { 
-          "IpProtocol" : "-1",
+          "IpProtocol" : "TCP",
           "FromPort" : "80",  
           "ToPort" : "80",
           "CidrIp" : "0.0.0.0/0"
+        },
+        { 
+          "IpProtocol" : "-1",
+          "FromPort" : "0",  
+          "ToPort" : "65535",
+          "CidrIp" : "13.229.207.180/32"
         }
         
          ],
@@ -397,7 +403,7 @@
       "InstanceType": {"Ref" : "EC2InstanceType"},
       "KeyName": "elktest",
 
-      "ImageId": "ami-039950f07c4a0d878",
+      "ImageId": "ami-0183e3460f448edd1",
       "SourceDestCheck": "True",
       "Tags": [{
         "Key": "Name",
