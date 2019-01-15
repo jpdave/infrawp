@@ -407,7 +407,7 @@
       "SourceDestCheck": "True",
       "Tags": [{
         "Key": "Name",
-        "Value": {"Fn::Join" : [ "-", [{"Ref" : "Env"}, "App-server"]]} 
+        "Value": {"Fn::Join" : [ "-", [{"Ref" : "Env"}, "App-server1"]]} 
       }, {
         "Key": "Env",
         "Value": {
