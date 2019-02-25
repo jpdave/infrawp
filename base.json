@@ -324,7 +324,7 @@
     "SecurityGroupRDS" :{
       "Type" : "AWS::EC2::SecurityGroup",
   "Properties" : {
-     "GroupDescription" : "ketto-dev-RDS-SG",
+     "GroupDescription" : "demo-RDS-SG",
      "SecurityGroupIngress" : [ { 
           "IpProtocol" : "tcp",
           "FromPort" : "3306",  
@@ -381,7 +381,7 @@
           "IpProtocol" : "-1",
           "FromPort" : "0",  
           "ToPort" : "65535",
-          "CidrIp" : "13.250.101.242/32"
+          "CidrIp" : "172.31.27.242/32"
         }
         
          ],
